@@ -1,10 +1,10 @@
-from sqlalchemy import Column, String, Integer, Interval, Text, ForeignKey
-from sqlalchemy.orm import relationship
 from database import Base
+from sqlalchemy import Column, ForeignKey, Integer, String, Text
+from sqlalchemy.orm import relationship
 
 
 class Recipes(Base):
-    __tablename__ = 'recipes'
+    __tablename__ = "recipes"
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     name = Column(String)
     count_view = Column(Integer)
@@ -14,8 +14,8 @@ class Recipes(Base):
 
 
 class Ingredient(Base):
-    __tablename__ = 'ingredients'
+    __tablename__ = "ingredients"
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    recipe_id = Column(Integer, ForeignKey('recipes.id'))
-    recipe = relationship("Recipes", back_populates='ingredients_list')
+    recipe_id = Column(Integer, ForeignKey("recipes.id"))
+    recipe = relationship("Recipes", back_populates="ingredients_list")

@@ -1,7 +1,6 @@
-from datetime import time
-from pydantic import BaseModel, Field
 from typing import List, Optional
-from models import Ingredient
+
+from pydantic import BaseModel
 
 
 class IngredientSchema(BaseModel):
