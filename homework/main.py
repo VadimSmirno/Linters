@@ -4,7 +4,6 @@ import models
 import schemas
 from database import engine, session
 from fastapi import FastAPI
-from flask import jsonify
 from log_dir import logger
 from models import Ingredient, Recipes
 from sqlalchemy.future import select
