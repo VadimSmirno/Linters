@@ -47,7 +47,7 @@ async def get_recept(idx: Optional[int] = None):
                 }
                 recipe_list.append(recipe_dict)
             logger.info(recipe_list)
-            return jsonify(recipe_list)
+            return recipe_list
         else:
             get_recept = await db.execute(
                 select(Recipes)
