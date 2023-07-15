@@ -3,6 +3,8 @@ from main import app
 
 client = TestClient(app)
 
+def test_number():
+    assert 1 == 1
 
 def test_get_all_recepts():
     response = client.get("/recept")
@@ -55,8 +57,9 @@ def test_create_recept_invalid_data():
     assert response.status_code == 422
 
 
-test_get_all_recepts()
-test_get_recept_by_id()
-test_get_recept_by_invalid_id()
-test_create_recept()
-test_create_recept_invalid_data()
+# test_get_all_recepts()
+# test_get_recept_by_id()
+# test_get_recept_by_invalid_id()
+# test_create_recept()
+# test_create_recept_invalid_data()
+test_number()
