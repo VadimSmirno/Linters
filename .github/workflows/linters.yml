@@ -5,8 +5,12 @@ on: workflow_dispatch
 #     branches: main
     
 jobs:
-  print:
+  tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Print to console
-        run: echo Hello Worold
+      - name: Get repository clone
+        uses: actions/checkout@v3.5.3 
+      - name: Install requirements 
+        run: pip install homework/requirements.txt
+      - name: Test application
+        run: pytest homework/test_main
