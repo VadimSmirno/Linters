@@ -13,4 +13,4 @@ jobs:
       - name: Install requirements 
         run: pip install -r homework/requirements.txt
       - name: Test application
-        run: pytest homework/test_main
+        run: pytest homework/test_main.py
