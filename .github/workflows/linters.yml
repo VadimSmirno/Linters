@@ -1,0 +1,12 @@
+name : My_linters
+
+on: workflow_dispatch
+#   push:
+#     branches: main
+    
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print to console
+        run: echo Hello Worold
