@@ -11,6 +11,6 @@ jobs:
       - name: Get repository clone
         uses: actions/checkout@v3.5.3 
       - name: Install requirements 
-        run: pip install homework/requirements.txt
+        run: pip install -r homework/requirements.txt
       - name: Test application
         run: pytest homework/test_main
