@@ -1,15 +1,23 @@
 from typing import List, Optional
-
+from database import async_session
 import models
 import schemas
 from database import engine, session
 from fastapi import FastAPI
+from flask import jsonify
 from log_dir import logger
 from models import Ingredient, Recipes
 from sqlalchemy.future import select
 from sqlalchemy.orm import joinedload
 
 app = FastAPI(title="Recepts")
+
+def get_db():
+    db = async_session()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 @app.on_event("startup")
