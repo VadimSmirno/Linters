@@ -14,3 +14,8 @@ jobs:
         run: pip install -r homework/requirements.txt
       - name: Test application
         run: pytest homework/test_main.py
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Сheck code
+        run: isort --profile black homework
