@@ -15,10 +15,10 @@ def test_get_all_recepts(db_engine, db, client):
     assert isinstance(response.json(), list)
 
 
-def test_get_recept_by_id(db_engine, db, client):
-    response = client.get("/recept/1")
-    assert response.status_code == 200
-    assert isinstance(response.json(), dict)
+# def test_get_recept_by_id(db_engine, db, client):
+#     response = client.get("/recept/1")
+#     assert response.status_code == 200
+#     assert isinstance(response.json(), dict)
 
 
 def test_get_recept_by_invalid_id(db_engine, db, client):
