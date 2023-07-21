@@ -1,31 +1,37 @@
 import pytest
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import Session
 from sqlalchemy_utils import create_database, drop_database
 from starlette.testclient import TestClient
-from main import app, get_db
-from database import Base, engine, metadata
-from models import Recipes, Ingredient
 
+from database import Base
+from log_dir import logger
+from main import app, get_db
+from models import Ingredient, Recipes
 
 TEST_DATABASE_URL = "sqlite:///./test.db"
 
-@pytest.fixture(scope="session")
+
+@pytest.fixture()
 def db_engine():
+    logger.info('db_engine')
     engine = create_engine(TEST_DATABASE_URL, connect_args={"check_same_thread": False})
     create_database(engine.url)
-
     Base.metadata.create_all(bind=engine)
     yield engine
+    drop_database(engine.url)
 
-@pytest.fixture(scope="function")
+
+@pytest.fixture()
 def db(db_engine):
+    logger.info('test')
     connection = db_engine.connect()
     connection.begin()
     db = Session(bind=connection)
     app.dependency_overrides[get_db] = lambda: db
 
     recipe = Recipes(
+        id=1,
         name="Test Recipe",
         count_view=0,
         cooking_time=30,
@@ -44,8 +50,9 @@ def db(db_engine):
     connection.close()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def client(db):
+    logger.info('client')
     app.dependency_overrides[get_db] = lambda: db
     with TestClient(app) as c:
         yield c

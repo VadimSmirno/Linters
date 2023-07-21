@@ -1,16 +1,16 @@
 from typing import List, Optional
-from database import async_session
-import models
-import schemas
-from database import engine, session
+
 from fastapi import FastAPI
-from flask import jsonify
-from log_dir import logger
-from models import Ingredient, Recipes
 from sqlalchemy.future import select
 from sqlalchemy.orm import joinedload
 
+import models
+import schemas
+from database import async_session, engine, session
+from models import Ingredient, Recipes
+
 app = FastAPI(title="Recepts")
+
 
 def get_db():
     db = async_session()
@@ -53,7 +53,6 @@ async def get_recept(idx: Optional[int] = None):
                     "cooking_time": recipe_obj.cooking_time,
                 }
                 recipe_list.append(recipe_dict)
-            logger.info(recipe_list)
             return recipe_list
         else:
             get_recept = await db.execute(
@@ -80,7 +79,6 @@ async def get_recept(idx: Optional[int] = None):
                 "ingredients_list": ingredient_list,
             }
             recipe_list.append(recipe_dict)
-            logger.info(recipe_list)
             return recipe_dict
 
 

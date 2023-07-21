@@ -1,29 +1,32 @@
 from fastapi.testclient import TestClient
+
 from main import app
 
 client = TestClient(app)
 
-def test_number():
+
+def test_number(db_engine):
     assert 1 == 1
 
-def test_get_all_recepts():
+
+def test_get_all_recepts(db_engine, db, client):
     response = client.get("/recept")
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
 
-def test_get_recept_by_id():
+def test_get_recept_by_id(db_engine, db, client):
     response = client.get("/recept/1")
     assert response.status_code == 200
     assert isinstance(response.json(), dict)
 
 
-def test_get_recept_by_invalid_id():
+def test_get_recept_by_invalid_id(db_engine, db, client):
     response = client.get("/recept/invalid_id")
     assert response.status_code == 422
 
 
-def test_create_recept():
+def test_create_recept(db_engine, db, client):
     recept_data = {
         "id": 1,
         "name": "суп",
@@ -45,7 +48,7 @@ def test_create_recept():
     )
 
 
-def test_create_recept_invalid_data():
+def test_create_recept_invalid_data(db_engine, db, client):
     invalid_recept_data = {
         "name": "Recipe 1",
         "count_view": "invalid_count_view",
@@ -56,10 +59,9 @@ def test_create_recept_invalid_data():
     response = client.post("/recept", json=invalid_recept_data)
     assert response.status_code == 422
 
-
-test_get_all_recepts()
-test_get_recept_by_id()
-test_get_recept_by_invalid_id()
-test_create_recept()
-test_create_recept_invalid_data()
-test_number()
+# test_get_all_recepts()
+# test_get_recept_by_id()
+# test_get_recept_by_invalid_id()
+# test_create_recept()
+# test_create_recept_invalid_data()
+# test_number()
