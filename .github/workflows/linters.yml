@@ -17,5 +17,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Install requirements
+        run: pip install -r homework/requirements.txt
       - name: Сheck code
         run: isort --profile black homework
